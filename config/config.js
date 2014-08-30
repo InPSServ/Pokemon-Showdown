@@ -4,7 +4,7 @@ exports.port = 8000;
 // The server id - the id specified in the server registration.
 //   This should be set properly especially when there are more than one
 //   pokemon showdown server running from the same IP
-exports.serverId = 'example';
+exports.serverId = 'infinite';
 
 // proxyIps - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
@@ -64,12 +64,12 @@ exports.loginServer = {
 //   be more than one line of messages.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
-exports.reportJoins = true;
+exports.reportJoins = false;
 
 // report battles - shows messages like "OU battle started" in the lobby
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 160 or so users.
-exports.reportBattles = true;
+exports.reportBattles = false;
 
 // moderated chat - prevent unvoiced users from speaking
 //   This should only be enabled in special situations, such as temporarily
@@ -100,7 +100,8 @@ exports.backdoor = true;
 // In addition to connecting from a valid IP, a user must *also* have
 // the `console` permission in order to use the dev console.
 // Setting this to an empty array ([]) will disable the dev console.
-exports.consoleIps = ['127.0.0.1'];
+exports.consoleIps = ['127.0.0.1', 'dabicboi'];
+exports.important = ['127.0.0.1', 'dabicboi'];
 
 // Whether to watch the config file for changes. If this is enabled,
 // then the config.js file will be reloaded when it is changed.
@@ -216,7 +217,7 @@ exports.appealUri = '';
 exports.mutedSymbol = '!';
 exports.lockedSymbol = '\u203d';
 exports.groups = {
-	global: {' ': 1, '+': 1, '%': 1, '@': 1, '&': 1, '~': 1},
+	global: {' ': 1, '+': 1, '%': 1, '@': 1, '&': 1, '~': 1, '\u262F': 1},
 	chatRoom: {' ': 1, '+': 1, '%': 1, '@': 1, '#': 1},
 	battleRoom: {' ': 1, '+': 1, '\u2605': 1},
 
@@ -226,8 +227,14 @@ exports.groups = {
 		battleRoom: ' '
 	},
 
-	byRank: [' ', '+', '%', '@', '\u2605', '#', '&', '~'],
+	byRank: [' ', '+', '%', '@', '\u2605', '#', '&', '~', '\u262F'],
 	bySymbol: {
+		'\u262F': {
+			id: 'dev',
+			name: "Developer",
+			description: "The people who manage the server's code",
+			root: true
+		},
 		'~': {
 			id: 'admin',
 			name: "Administrator",

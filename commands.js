@@ -395,6 +395,7 @@ var commands = exports.commands = {
 		for (var ip in targetUser.ips) {
 			room.bannedIps[ip] = true;
 		}
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 		targetUser.popup("" + user.name + " has banned you from the room " + room.id + ". To appeal the ban, PM the moderator that banned you or a room owner." + (target ? " (" + target + ")" : ""));
 		this.addModCommand("" + targetUser.name + " was banned from room " + room.id + " by " + user.name + "." + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
@@ -494,7 +495,7 @@ var commands = exports.commands = {
 	 *********************************************************/
 
 	k: 'kick',
-	kick: function (target, room, user){
+	kick: function (target, room, user) {
 		if (!target) return;
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
@@ -502,6 +503,7 @@ var commands = exports.commands = {
 			return this.sendReply("User " + this.targetUsername + " not found.");
 		}
 		if (!this.can('kick', targetUser)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 		var msg = "kicked by " + user.name + (target ? " (" + target + ")" : "") + ".";
 		this.addModCommand("" + targetUser.name + " was " + msg);
 		targetUser.popup("You have been " + msg);
@@ -522,6 +524,7 @@ var commands = exports.commands = {
 			return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('warn', targetUser, room)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		this.addModCommand("" + targetUser.name + " was warned by " + user.name + "." + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn ' + target);
@@ -573,6 +576,7 @@ var commands = exports.commands = {
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		targetUser.popup("" + user.name + " has muted you for 7 minutes. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 7 minutes." + (target ? " (" + target + ")" : ""));
@@ -595,6 +599,7 @@ var commands = exports.commands = {
 			return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('mute', targetUser, room)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id] || 0) >= 50 * 60 * 1000) || targetUser.locked) && !target) {
 			var problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
@@ -640,6 +645,7 @@ var commands = exports.commands = {
 			return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('lock', targetUser)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		if ((targetUser.locked || Users.checkBanned(targetUser.latestIp)) && !target) {
 			var problem = " but was already " + (targetUser.locked ? "locked" : "banned");
@@ -702,6 +708,7 @@ var commands = exports.commands = {
 			return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('ban', targetUser)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = " but was already banned";
@@ -978,6 +985,7 @@ var commands = exports.commands = {
 		targetUser = Users.get(target);
 		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' not found.");
 		if (!this.can('forcerename', targetUser)) return false;
+		if (targetUser.important) return this.sendReply('Hahaha... <b><i>NO</i></b>! (e_e) (a_a)');
 
 		if (targetUser.userid !== toId(target)) {
 			return this.sendReply("User '" + target + "' had already changed its name to '" + targetUser.name + "'.");

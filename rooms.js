@@ -484,6 +484,8 @@ var GlobalRoom = (function () {
 	GlobalRoom.prototype.onJoinConnection = function (user, connection) {
 		var initdata = '|updateuser|' + user.name + '|' + (user.named ? '1' : '0') + '|' + user.avatar + '\n';
 		connection.send(initdata + this.formatListText);
+		if (this.reminders && this.reminders.length > 0)
+			CommandParser.parse('/reminder', this, user, connection);
 		if (this.chatRooms.length > 2) connection.send('|queryresponse|rooms|null'); // should display room list
 	};
 	GlobalRoom.prototype.onJoin = function (user, connection, merging) {
@@ -1389,6 +1391,8 @@ var ChatRoom = (function () {
 		if (!merging) {
 			var userList = this.userList ? this.userList : this.getUserList();
 			this.sendUser(connection, '|init|chat\n|title|' + this.title + '\n' + userList + '\n' + this.getLogSlice(-100).join('\n') + this.getIntroMessage());
+			if (this.reminders && this.reminders.length > 0)
+				CommandParser.parse('/reminder', this, user, connection);
 		}
 		if (global.Tournaments && Tournaments.get(this.id)) {
 			Tournaments.get(this.id).updateFor(user, connection);

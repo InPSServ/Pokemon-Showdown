@@ -393,6 +393,14 @@ exports.BattleFormats = {
 			return problems;
 		}
 	},
+	accuracymovesclause: {
+		effectType: 'Banlist',
+		name: 'Accuracy Moves Clause',
+		banlist: ['Flash', 'Kinesis', 'Mirror Shot', 'Mud Bomb', 'Mud-Slap', 'Muddy Water', 'Night Daze', 'Octazooka', 'Sand Attack', 'Smoke Screen'],
+		onStart: function () {
+			this.add('rule', 'Accuracy Moves Clause: Accuracy lowering moves are banned');
+		}
+	},
 	evasionabilitiesclause: {
 		effectType: 'Banlist',
 		name: 'Evasion Abilities Clause',
@@ -407,6 +415,14 @@ exports.BattleFormats = {
 		banlist: ['Minimize', 'Double Team'],
 		onStart: function () {
 			this.add('rule', 'Evasion Moves Clause: Evasion moves are banned');
+		}
+	},
+	weatherclause: {
+		effectType: 'Rule',
+		name: 'Weather Abilities Clause',
+		banlist: ['Drizzle', 'Drought', 'Sand Stream', 'Snow Warning'],
+		onStart: function () {
+			this.add('rule', 'Weather Clause: Weather-inducing abilities are banned');
 		}
 	},
 	endlessbattleclause: {

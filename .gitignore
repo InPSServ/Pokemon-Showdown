@@ -6,6 +6,8 @@ components.js
 core.js
 miscommands.js
 /logs/complain.txt
+/config/config.js
+/config/custom.css
 
 # boilerplate #
 ###############

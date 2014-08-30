@@ -186,10 +186,8 @@ var components = exports.components = {
 		var targetUser = this.targetUserOrSelf(target);
 
 		var money = Core.profile.money(toId(targetUser.userid));
-		var b = 'buck';
-		if (money > 1) b = 'bucks';
 
-		if (cmd === 'atm') return this.sendReplyBox('<b><font color="#24678d">' + targetUser.name + ' </font></b>has <b><font color="#24678d">' + money + ' </font></b>' + b + '.');
+		if (cmd === 'atm') return this.sendReplyBox('<b><font color="#24678d">' + targetUser.name + ' </font></b>has <b><font color="#24678d">' + money + ' </font></b>' + (money === 0 ? 'bucks' : money === 1 ? 'buck' : money > 1 ? 'bucks') + '.');
 
 		if (target.length >= 19) return this.sendReply('Usernames are required to be less than 19 characters long.');
 
@@ -297,108 +295,6 @@ var components = exports.components = {
 			this.sendReplyBox('<center><b><font size="3">' + targetUser.name + ':</font></b>  ' + driver);
 		}
 	},
-
-	/*setbadges: 'badge',
-	setbadge: 'badge',
-	badges: 'badge',
-	badge: function (target, room, user) {
-		// this is macrarazy's version
-		// INCOMPLETE
-
-		if (!target) {
-			if (!this.canBroadcast()) return;
-			target = user.userid;
-			target = target.toLowerCase();
-			target = target.trim();
-			if (!user.badges) return this.sendReply("You do not have any badges.");
-			this.sendReplyBox(badges);
-			if (!this.broadcasting) {
-				if (!user.badges) return this.sendReply("" + target + " does not have any badges.");
-			}
-			return;
-		}
-		if (!this.can('badge')) return false;
-		if (!this.canHTML(target)) return;
-		if (!/</.test(target)) {
-			target = target.replace('<a href="$1">$1</a>');
-		}
-
-		if (!target.trim()) target = '';
-		badges = target;
-		this.sendReply("(User " + target + "'s badgeset has been updated to:)");
-		this.sendReplyBox(target);
-
-		if (user.userData) {
-			user.userData.badges = user.badges;
-			Users.global.writeUserData();
-		}
-	},*/
-
-	/*setbadges: 'badge',
-	setbadge: 'badge',
-	badge: function (target, room, user) {
-		// this is Aananth's version
-		if (!target) return this.sendReply('It is recommended to set badges to their Alumnus rather than no badges at all.');
-		
-		var now = Date.now();
-		
-		if ((now - user.lastBadge) * 0.001 < 30) {
-			this.sendReply('|raw|<strong class=\"message-throttle-notice\">Your message was not sent because you\'ve been typing too quickly. You must wait ' + Math.floor(
-			(30 - (now - user.lastAbout) * 0.001)) + ' seconds</strong>');
-			return;
-		}
-
-		user.lastBadge = now;
-		
-		var badges = '';
-		var key = '';
-		var match = false;
-
-		var data = Core.stdin('badge', user.userid);
-		if (data === target) return this.sendReply('This badgeset is the same as ' + targetUser.name + '\'s current one.');
-		
-		Core.stdout('badge', user.userid, target);
-
-		var row = ('' + data).split("\n");
-		for (var i = row.length; i > -1; i--) {
-			if (!row[i]) continue;
-			var parts = row[i].split(",");
-			var userid = toUserid(parts[0]);
-			if (targetUser.userid == userid) {
-				key = String(parts[1]);
-				if (key.indexOf('1') >= 0) {
-					badges += '<img src="http://i.imgur.com/EghmFiY.png" title="is a Contributor">';
-				}
-				if (key.indexOf('2') >= 0) {
-					badges += '<img src="http://i.imgur.com/oeKdHgW.png" title="is a Driver">';
-				}
-				if (key.indexOf('3') >= 0) {
-					badges += '<img src="http://i.imgur.com/z3W1EAh.png" title ="is a Moderator">';
-				}
-				if (key.indexOf('4') >= 0) {
-					badges += '<img src="http://i.imgur.com/5Dy544w.png" title="is a Leader">';
-				}
-				if (key.indexOf('5') >= 0) {
-					badges += '<img src="http://i.imgur.com/oyv3aga.png" title="is a Developer">';
-				}
-				if (key.indexOf('6') >= 0) {
-					badges += '<img src="http://i.imgur.com/lfPYzFG.png" title="is the Server Host">'; 
-				}
-				if (key.indexOf('7') >= 0) {
-					badges += '<img src="http://i.imgur.com/yPAXWE9.png" title="is a Tournament Director">';
-				}
-				match = true;
-					if (match === true) {
-						break;
-					}
-				}
-			}
-		targetUser.badges = badges;
-		return targetUser.badges;
-		    
-		this.sendReply(targetUser.name + '\'s badgeset is now: ' badges);
-		},
-	},*/
 
 	complaint: 'complain',
 	complain: function (target, room, user) {

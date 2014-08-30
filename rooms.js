@@ -81,7 +81,12 @@ var Room = (function () {
 		message = CommandParser.parse(message, this, user, connection);
 
 		if (message) {
-			this.add('|c|' + user.getIdentity(this.id) + '|' + message);
+			if (Spamroom.isSpamroomed(user)) {
+				Spamroom.room.add('|c|' + user.getIdentity() + "|__(To " + this.id + ")__ " + message);
+				connection.sendTo(this, '|chat|' + user.name + '|' + message);
+			} else {
+				this.add('|c|' + user.getIdentity(this.id) + '|' + message);
+			}
 		}
 		this.update();
 	};
@@ -581,7 +586,12 @@ var GlobalRoom = (function () {
 		if (rooms.lobby) return rooms.lobby.chat(user, message, connection);
 		message = CommandParser.parse(message, this, user, connection);
 		if (message) {
-			connection.sendPopup("You can't send messages directly to the server.");
+			if (Spamroom.isSpamroomed(user)) {
+				Spamroom.room.add('|c|' + user.getIdentity() + "|__(To " + this.id + ")__ " + message);
+				connection.sendTo(this, '|c|' + user.getIdentity(this.id) + '|' + message);
+			} else {
+				connection.sendPopup("You can't send messages directly to the server.");
+			}
 		}
 	};
 	return GlobalRoom;

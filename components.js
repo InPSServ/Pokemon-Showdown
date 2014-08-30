@@ -11,11 +11,10 @@
  *
  * @license MIT license
  */
-
 var fs = require("fs");
-    path = require("path"),
-    http = require("http"),
-    request = require('request');
+path = require("path"),
+	http = require("http"),
+	request = require('request');
 
 var tiersforpoll = 'PU, DTT, ABC Abilities Ubers, ABC Abilities, Randbats, OU, Ubers, UU, RU, NU, LC, Custom Game, Random Dubs, Doubles, STABmons, Almost Any Ability, Challenge Cup, CC1v1, 1v1, Balanced Hackmons, Inverse Battle, OU Mono, Tier Shift, Mediocremons';
 
@@ -24,61 +23,61 @@ var components = exports.components = {
 	eating: 'away',
 	gaming: 'away',
 	coding: 'away',
-    	sleep: 'away',
+	sleep: 'away',
 	work: 'away',
-    	working: 'away',
-    	sleeping: 'away',
-    	busy: 'away',    
+	working: 'away',
+	sleeping: 'away',
+	busy: 'away',
 	afk: 'away',
-	away: function (target, room, user, connection, cmd) {
+	away: function(target, room, user, connection, cmd) {
 		if (!this.canTalk()) return this.sendReply('You are unable to talk.');
 		// unicode away message idea by Siiilver
 		var t = 'Ⓐⓦⓐⓨ';
 		var t2 = 'Away';
 		switch (cmd) {
 			case 'busy':
-			t = 'Ⓑⓤⓢⓨ';
-			t2 = 'Busy';
-			break;
+				t = 'Ⓑⓤⓢⓨ';
+				t2 = 'Busy';
+				break;
 			case 'sleeping':
-			t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
-			t2 = 'Sleeping';
-			break;
+				t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
+				t2 = 'Sleeping';
+				break;
 			case 'sleep':
-			t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
-			t2 = 'Sleeping';
-			break;
+				t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
+				t2 = 'Sleeping';
+				break;
 			case 'gaming':
-			t = 'Ⓖⓐⓜⓘⓝⓖ';
-			t2 = 'Gaming';
-			break;
+				t = 'Ⓖⓐⓜⓘⓝⓖ';
+				t2 = 'Gaming';
+				break;
 			case 'coding':
-			t = 'Ⓒⓞⓓⓘⓝⓖ';
-			t2 = 'Coding';
-			break;
+				t = 'Ⓒⓞⓓⓘⓝⓖ';
+				t2 = 'Coding';
+				break;
 			case 'working':
-			t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
-			t2 = 'Working';
-			break;
+				t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
+				t2 = 'Working';
+				break;
 			case 'work':
-			t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
-			t2 = 'Working';
-			break;
+				t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
+				t2 = 'Working';
+				break;
 			case 'eating':
-			t = 'Ⓔⓐⓣⓘⓝⓖ';
-			t2 = 'Eating';
-			break;
+				t = 'Ⓔⓐⓣⓘⓝⓖ';
+				t2 = 'Eating';
+				break;
 			default:
-			t = 'Ⓐⓦⓐⓨ'
-			t2 = 'Away';
-			break;
+				t = 'Ⓐⓦⓐⓨ'
+				t2 = 'Away';
+				break;
 		}
-		
+
 		if (user.name.length > 18) return this.sendReply('Your username exceeds the length limit.');
 
 		if (!user.isAway) {
 			user.originalName = user.name;
-			var awayName = user.name + ' - '+t;
+			var awayName = user.name + ' - ' + t;
 			//delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
 			delete Users.get(awayName);
 			user.forceRename(awayName, undefined, true);
@@ -87,20 +86,19 @@ var components = exports.components = {
 			if (a === '%' || a === '@' || a === '&' || a === '~') this.add('|raw|-- <b><font color="#088cc7">' + user.originalName + '</font color></b> is now ' + t2.toLowerCase() + '. ' + (target ? ' (' + escapeHTML(target) + ')' : ''));
 
 			user.isAway = true;
-		}
-		else {
+		} else {
 			return this.sendReply('You are already set as a form of away, type /back if you are now back.');
 		}
 
 		user.updateIdentity();
 	},
 
-	back: function (target, room, user, connection) {
+	back: function(target, room, user, connection) {
 		if (!this.can('away')) return false;
 
 		if (user.isAway) {
 			if (user.name === user.originalName) {
-				user.isAway = false; 
+				user.isAway = false;
 				return this.sendReply('Your name has been left unaltered and no longer marked as away.');
 			}
 
@@ -119,8 +117,7 @@ var components = exports.components = {
 
 			user.originalName = '';
 			user.isAway = false;
-		}
-		else {
+		} else {
 			return this.sendReply('You are not set as away.');
 		}
 
@@ -128,7 +125,7 @@ var components = exports.components = {
 	},
 
 	earnbucks: 'earnmoney',
-	earnmoney: function (target, room, user) {
+	earnmoney: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('<b><font color=green>You can earn bucks by:</font></b><li>Competing in various Tournaments throughout the Server\'s official rooms.<br />' +
 			'<li>Gambling in the Casino by joining in bucks to play for more. (luck based so don\'t blame anyone for what happens; currently not available)</li>' +
@@ -138,7 +135,7 @@ var components = exports.components = {
 		);
 	},
 
-	regdate: function (target, room, user, connection) {
+	regdate: function(target, room, user, connection) {
 		if (!this.canBroadcast()) return;
 		if (!target || target == "." || target == "," || target == "'") return this.parse('/help regdate');
 		var username = target;
@@ -152,31 +149,31 @@ var components = exports.components = {
 
 		var content = "";
 		var self = this;
-		var req = http.request(options, function (res) {
+		var req = http.request(options, function(res) {
 
 			res.setEncoding("utf8");
-			res.on("data", function (chunk) {
+			res.on("data", function(chunk) {
 				content += chunk;
 			});
 
-		res.on("end", function () {
-		content = content.split("<em");
-		if (content[1]) {
-			content = content[1].split("</p>");
-			if (content[0]) {
-				content = content[0].split("</em>");
-			if (content[1]) {
-				regdate = content[1];
-				data = Tools.escapeHTML(username) + ' was registered on' + regdate + '.';
-			}
-		}
-		} else {
-			data = Tools.escapeHTML(username) + ' is not registered.';
-		}
+			res.on("end", function() {
+				content = content.split("<em");
+				if (content[1]) {
+					content = content[1].split("</p>");
+					if (content[0]) {
+						content = content[0].split("</em>");
+						if (content[1]) {
+							regdate = content[1];
+							data = Tools.escapeHTML(username) + ' was registered on' + regdate + '.';
+						}
+					}
+				} else {
+					data = Tools.escapeHTML(username) + ' is not registered.';
+				}
 
-		self.sendReplyBox(data);
+				self.sendReplyBox(data);
 
-		room.update();
+				room.update();
 			});
 		});
 
@@ -184,7 +181,7 @@ var components = exports.components = {
 	},
 
 	atm: 'profile',
-	profile: function (target, room, user, connection, cmd) {
+	profile: function(target, room, user, connection, cmd) {
 		if (!this.canBroadcast()) return;
 
 		var targetUser = this.targetUserOrSelf(target);
@@ -212,29 +209,29 @@ var components = exports.components = {
 			if (about === 0) {
 				return this.sendReplyBox(Core.profile.avatar(false, userId) + Core.profile.name(false, userId) + Core.profile.group(false, userId) + Core.profile.lastSeen(false, userId) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(userId)) + '<br clear="all">');
 			}
-				return this.sendReplyBox(Core.profile.avatar(false, userId) + Core.profile.name(false, target) + Core.profile.group(false, userId) + Core.profile.display('about', about) + Core.profile.lastSeen(false, userId) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(userId)) + '<br clear="all">');
-			}
+			return this.sendReplyBox(Core.profile.avatar(false, userId) + Core.profile.name(false, target) + Core.profile.group(false, userId) + Core.profile.display('about', about) + Core.profile.lastSeen(false, userId) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(userId)) + '<br clear="all">');
+		}
 
-			var money = Core.profile.money(targetUser.userid);
-			var elo = Core.profile.tournamentElo(toId(targetUser.userid));
-			var about = Core.profile.about(targetUser.userid);
+		var money = Core.profile.money(targetUser.userid);
+		var elo = Core.profile.tournamentElo(toId(targetUser.userid));
+		var about = Core.profile.about(targetUser.userid);
 
-			if (elo === 1000 && about === 0) {
-				return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + '<br clear="all">');
-			}
-			if (elo === 1000) {
-				return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.display('about', about) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + '<br clear="all">');
-			}
-			if (about === 0) {
-				return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(targetUser.userid)) + '<br clear="all">');
-			}
-				return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.display('about', about) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(targetUser.userid)) + '<br clear="all">');
+		if (elo === 1000 && about === 0) {
+			return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + '<br clear="all">');
+		}
+		if (elo === 1000) {
+			return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.display('about', about) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + '<br clear="all">');
+		}
+		if (about === 0) {
+			return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(targetUser.userid)) + '<br clear="all">');
+		}
+		return this.sendReplyBox(Core.profile.avatar(true, targetUser, targetUser.avatar) + Core.profile.name(true, targetUser) + Core.profile.group(true, targetUser) + Core.profile.display('about', about) + Core.profile.lastSeen(true, targetUser) + Core.profile.display('money', money) + Core.profile.display('elo', elo, Core.profile.rank(targetUser.userid)) + '<br clear="all">');
 	},
 
 	setstatus: 'about',
 	status: 'about',
 	setabout: 'about',
-	about: function (target, room, user) {
+	about: function(target, room, user) {
 		if (!target) return this.parse('/help about');
 		if (target.length > 55) return this.sendReply('About cannot be over 55 characters.');
 
@@ -242,7 +239,7 @@ var components = exports.components = {
 
 		if ((now - user.lastAbout) * 0.001 < 30) {
 			this.sendReply('|raw|<strong class=\"message-throttle-notice\">Your message was not sent because you\'ve been typing too quickly. You must wait ' + Math.floor(
-			(30 - (now - user.lastAbout) * 0.001)) + ' seconds</strong>');
+				(30 - (now - user.lastAbout) * 0.001)) + ' seconds</strong>');
 			return;
 		}
 
@@ -257,9 +254,9 @@ var components = exports.components = {
 
 		this.sendReply('Your about is now: "' + target + '"');
 	},
-    
+
 	badges: 'badge',
-	badge: function (target, room, user) {
+	badge: function(target, room, user) {
 		// this is Evasi0n's version
 		if (!this.canBroadcast()) return;
 		if (!target) target = user.userid;
@@ -337,7 +334,7 @@ var components = exports.components = {
 			Users.global.writeUserData();
 		}
 	},*/
-    
+
 	/*setbadges: 'badge',
 	setbadge: 'badge',
 	badge: function (target, room, user) {
@@ -403,11 +400,11 @@ var components = exports.components = {
 		this.sendReply(targetUser.name + '\'s badgeset is now: ' badges);
 		},
 	},*/
-	
-	/*complaint: 'complain',
+
+	complaint: 'complain',
 	complain: function (target, room, user) {
 		if (!target) return this.parse('/help complaint');
-		this.sendReplyBox('Thanks for your input. We\'ll review your feedback soon. The complaint you submitted was: ' + target);
+		this.sendReplyBox('Thank you for your input. We will review your feedback soon. The complaint you submitted was: "' + target + '"');
 		this.logComplaint(target);
 	},
 
@@ -447,10 +444,10 @@ var components = exports.components = {
 				}
 			}
 		});
-	},*/
-	
+	},
+
 	tourladder: 'tournamentladder',
-	tournamentladder: function (target, room, user) {
+	tournamentladder: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 
 		if (!target) target = 10;
@@ -462,41 +459,41 @@ var components = exports.components = {
 		return this.sendReply('|raw|<center>' + ladder + 'To view the entire ladder use /tourladder <em>all</em> or to view a certain amount of users use /tourladder <em>number</em></center>');
 	},
 
-	shop: function (target, room, user) {
+	shop: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReply('|raw|' + Core.shop(true));
 	},
 
-	buy: function (target, room, user) {
+	buy: function(target, room, user) {
 		if (!target) this.parse('/help buy');
 
 		var userMoney = Number(Core.stdin('money', user.userid));
 		var shop = Core.shop(false);
 		var len = shop.length;
 		while (len--) {
-		if (target.toLowerCase() === shop[len][0].toLowerCase()) {
-			var price = shop[len][2];
-			if (price > userMoney) return this.sendReply('You don\'t have enough money for this. You need ' + (price - userMoney) + ' more bucks to buy ' + target + '.');
-			Core.stdout('money', user.userid, (userMoney - price));
-			if (target.toLowerCase() === 'symbol') {
-				user.canCustomSymbol = true;
-				this.sendReply('You have purchased a custom symbol. You will have this until you log off for more than an hour. You may now use /customsymbol now.');
-				this.parse('/help customsymbol');
-				this.sendReply('If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.');
-			} else {
-				this.sendReply('You have purchased ' + target + '. Admins will be shortly notified of this purchase, kindly be patient for a response.');
-				for (var u in Users.users) {
-					if (Users.get(u).group === '~') Users.get(u).send('|pm|~Shop|' + Users.get(u).group + Users.get(u).name + '|' + user.name + ' has bought ' + target + ' from the shop.');
+			if (target.toLowerCase() === shop[len][0].toLowerCase()) {
+				var price = shop[len][2];
+				if (price > userMoney) return this.sendReply('You don\'t have enough money for this. You need ' + (price - userMoney) + ' more bucks to buy ' + target + '.');
+				Core.stdout('money', user.userid, (userMoney - price));
+				if (target.toLowerCase() === 'symbol') {
+					user.canCustomSymbol = true;
+					this.sendReply('You have purchased a custom symbol. You will have this until you log off for more than an hour. You may now use /customsymbol now.');
+					this.parse('/help customsymbol');
+					this.sendReply('If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.');
+				} else {
+					this.sendReply('You have purchased ' + target + '. Admins will be shortly notified of this purchase, kindly be patient for a response.');
+					for (var u in Users.users) {
+						if (Users.get(u).group === '~') Users.get(u).send('|pm|~Shop|' + Users.get(u).group + Users.get(u).name + '|' + user.name + ' has bought ' + target + ' from the shop.');
 					}
 				}
-			room.add(user.name + ' has bought ' + target + ' from the shop.');
+				room.add(user.name + ' has bought ' + target + ' from the shop.');
 			}
 		}
 	},
 
 	transferbuck: 'transfermoney',
 	transferbucks: 'transfermoney',
-	transfermoney: function (target, room, user) {
+	transfermoney: function(target, room, user) {
 		if (!target) return this.parse('/help transfermoney');
 		if (!this.canTalk()) return;
 
@@ -525,7 +522,7 @@ var components = exports.components = {
 		userMoney = Number(userMoney) - transferMoney;
 		targetMoney = Number(targetMoney) + transferMoney;
 
-		Core.stdout('money', user.userid, userMoney, function () {
+		Core.stdout('money', user.userid, userMoney, function() {
 			Core.stdout('money', targetUser.userid, targetMoney);
 		});
 
@@ -566,12 +563,12 @@ var components = exports.components = {
 	},
 
 	viewtells: 'showtells',
-	showtells: function (target, room, user) {
+	showtells: function(target, room, user) {
 		if (!tells) return this.sendReply('You currently have no queued tells.');
 		return this.sendReply("|raw|<b>These users have currently have queued tells:</b> " + Object.keys(tells));
 	},
 
-	vote: function (target, room, user) {
+	vote: function(target, room, user) {
 		if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
 		if (!this.canTalk()) return;
 		if (!target) return this.parse('/help vote');
@@ -583,28 +580,28 @@ var components = exports.components = {
 		return this.sendReply('|raw|You are now voting for <b>' + target + '</b>.');
 	},
 
-	votes: function (target, room, user) {
+	votes: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
 		this.sendReplyBox('NUMBER OF VOTES: <b>' + Object.keys(Poll[room.id].options).length + '</b>');
 	},
 
 	pr: 'pollremind',
-	pollremind: function (target, room, user) {
+	pollremind: function(target, room, user) {
 		if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox(Poll[room.id].display);
 	},
-	
+
 	hv: 'helpvotes',
-	helpvotes: function (target, room, user) {
+	helpvotes: function(target, room, user) {
 		return this.parse('/wall Remember to **vote** even if you don\'t want to battle; that way you\'re still voting for what tier battles you want to watch!');
 	},
 
 	dc: 'poof',
 	disconnected: 'poof',
 	cpoof: 'poof',
-	poof: (function () {
+	poof: (function() {
 		var messages = [
 			"has vanished into nothingness!",
 			"used Explosion!",
@@ -621,16 +618,16 @@ var components = exports.components = {
 			"{{user}}, BlakJack just fucked you up!"
 		];
 
-		return function (target, room, user) {
+		return function(target, room, user) {
 			if (target && !this.can('broadcast')) return false;
 			if (room.id !== 'lobby') return false;
 			var message = target || messages[Math.floor(Math.random() * messages.length)];
 			if (message.indexOf('{{user}}') < 0)
-			message = '{{user}} ' + message;
+				message = '{{user}} ' + message;
 			message = message.replace(/{{user}}/g, user.name);
 			if (!this.canTalk(message)) return false;
 
-			var colour = '#' + [1, 1, 1].map(function () {
+			var colour = '#' + [1, 1, 1].map(function() {
 				var part = Math.floor(Math.random() * 0xaa);
 				return (part < 0x10 ? '0' : '') + part.toString(16);
 			}).join('');
@@ -640,52 +637,52 @@ var components = exports.components = {
 		};
 	})(),
 
-	customsymbol: function (target, room, user) {
+	customsymbol: function(target, room, user) {
 		if (!user.canCustomSymbol) return this.sendReply('You need to buy this item from the shop to use.');
 		if (!target || target.length > 1) return this.parse('/help customsymbol');
 		if (target.match(/[A-Za-z\d]+/g) || '‽!+%@\u2605&~#'.indexOf(target) >= 0) return this.sendReply('Sorry, but you cannot change your symbol to this for safety/stability reasons.');
-		user.getIdentity = function (roomid) {
+		user.getIdentity = function(roomid) {
 			if (!roomid) roomid = 'lobby';
 			var name = this.name + (this.away ? " - \u0410\u051d\u0430\u0443" : "");
 			if (this.locked) {
 				return '‽' + name;
 			}
-		if (this.mutedRooms[roomid]) {
-			return '!' + name;
-		}
-		var room = Rooms.rooms[roomid];
-		if (room.auth) {
-			if (room.auth[this.userid]) {
-				return room.auth[this.userid] + name;
-				}
-		if (room.isPrivate) return ' ' + name;
+			if (this.mutedRooms[roomid]) {
+				return '!' + name;
 			}
-		return target + name;
+			var room = Rooms.rooms[roomid];
+			if (room.auth) {
+				if (room.auth[this.userid]) {
+					return room.auth[this.userid] + name;
+				}
+				if (room.isPrivate) return ' ' + name;
+			}
+			return target + name;
 		};
 		user.updateIdentity();
 		user.canCustomSymbol = false;
 		user.hasCustomSymbol = true;
 	},
 
-	resetsymbol: function (target, room, user) {
+	resetsymbol: function(target, room, user) {
 		if (!user.hasCustomSymbol) return this.sendReply('You don\'t have a custom symbol.');
-		user.getIdentity = function (roomid) {
+		user.getIdentity = function(roomid) {
 			if (!roomid) roomid = 'lobby';
 			var name = this.name + (this.away ? " - \u0410\u051d\u0430\u0443" : "");
 			if (this.locked) {
 				return '‽' + name;
 			}
-		if (this.mutedRooms[roomid]) {
-			return '!' + name;
-		}
-		var room = Rooms.rooms[roomid];
-		if (room.auth) {
-			if (room.auth[this.userid]) {
-				return room.auth[this.userid] + name;
-				}
-		if (room.isPrivate) return ' ' + name;
+			if (this.mutedRooms[roomid]) {
+				return '!' + name;
 			}
-		return this.group + name;
+			var room = Rooms.rooms[roomid];
+			if (room.auth) {
+				if (room.auth[this.userid]) {
+					return room.auth[this.userid] + name;
+				}
+				if (room.isPrivate) return ' ' + name;
+			}
+			return this.group + name;
 		};
 		user.hasCustomSymbol = false;
 		user.updateIdentity();
@@ -693,20 +690,20 @@ var components = exports.components = {
 	},
 
 	emoticons: 'emoticon',
-	emoticon: function (target, room, user) {
+	emoticon: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		var name = Object.keys(Core.emoticons),
 			emoticons = [];
 		var len = name.length;
 		while (len--) {
-			emoticons.push((Core.processEmoticons(name[(name.length-1)-len]) + '&nbsp;' + name[(name.length-1)-len]));
+			emoticons.push((Core.processEmoticons(name[(name.length - 1) - len]) + '&nbsp;' + name[(name.length - 1) - len]));
 		}
 		this.sendReplyBox('<b><u>List of emoticons:</b></u> <br/><br/>' + emoticons.join(' ').toString());
 	},
 
 	u: 'urbandefine',
 	ud: 'urbandefine',
-	urbandefine: function (target, room, user) {
+	urbandefine: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (!target) return this.parse('/help urbandefine')
 		if (target > 50) return this.sendReply('Phrase can not be longer than 50 characters.');
@@ -717,7 +714,7 @@ var components = exports.components = {
 			term: target,
 			headers: {
 				'Referer': 'http://m.urbandictionary.com'
-	    		},
+			},
 			qs: {
 				'term': target
 			}
@@ -725,20 +722,20 @@ var components = exports.components = {
 
 		function callback(error, response, body) {
 			if (!error && response.statusCode == 200) {
-			var page = JSON.parse(body);
-			var definitions = page['list'];
-			if (page['result_type'] == 'no_results') {
-				self.sendReplyBox('No results for <b>"' + Tools.escapeHTML(target) + '"</b>.');
-				return room.update();
-			} else {
-				if (!definitions[0]['word'] || !definitions[0]['definition']) {
-				self.sendReplyBox('No results for <b>"' + Tools.escapeHTML(target) + '"</b>.');
-				return room.update();
+				var page = JSON.parse(body);
+				var definitions = page['list'];
+				if (page['result_type'] == 'no_results') {
+					self.sendReplyBox('No results for <b>"' + Tools.escapeHTML(target) + '"</b>.');
+					return room.update();
+				} else {
+					if (!definitions[0]['word'] || !definitions[0]['definition']) {
+						self.sendReplyBox('No results for <b>"' + Tools.escapeHTML(target) + '"</b>.');
+						return room.update();
 					}
-				var output = '<b>' + Tools.escapeHTML(definitions[0]['word']) + ':</b> ' + Tools.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
-				if (output.length > 400) output = output.slice(0, 400) + '...';
-				self.sendReplyBox(output);
-				return room.update();
+					var output = '<b>' + Tools.escapeHTML(definitions[0]['word']) + ':</b> ' + Tools.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					if (output.length > 400) output = output.slice(0, 400) + '...';
+					self.sendReplyBox(output);
+					return room.update();
 				}
 			}
 		}
@@ -746,7 +743,7 @@ var components = exports.components = {
 	},
 
 	def: 'define',
-	define: function (target, room, user) {
+	define: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (!target) return this.parse('/help define');
 		target = toId(target);
@@ -755,25 +752,25 @@ var components = exports.components = {
 		var self = this;
 		var options = {
 			url: 'http://api.wordnik.com:80/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
-			'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
-			};
+				'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+		};
 
 		function callback(error, response, body) {
 			if (!error && response.statusCode == 200) {
-			var page = JSON.parse(body);
-			var output = '<font color=' + Core.profile.color + '><b>Definitions for ' + target + ':</b></font><br />';
-			if (!page[0]) {
-				self.sendReplyBox('No results for <b>"' + target + '"</b>.');
-				return room.update();
-			} else {
-				var count = 1;
-				for (var u in page) {
-					if (count > 3) break;
-					output += '(' + count + ') ' + page[u]['text'] + '<br />';
-					count++;
+				var page = JSON.parse(body);
+				var output = '<font color=' + Core.profile.color + '><b>Definitions for ' + target + ':</b></font><br />';
+				if (!page[0]) {
+					self.sendReplyBox('No results for <b>"' + target + '"</b>.');
+					return room.update();
+				} else {
+					var count = 1;
+					for (var u in page) {
+						if (count > 3) break;
+						output += '(' + count + ') ' + page[u]['text'] + '<br />';
+						count++;
 					}
-				self.sendReplyBox(output);
-				return room.update();
+					self.sendReplyBox(output);
+					return room.update();
 				}
 			}
 		}
@@ -781,10 +778,10 @@ var components = exports.components = {
 	},
 
 	/*********************************************************
-	* Staff commands
-	*********************************************************/
+	 * Staff commands
+	 *********************************************************/
 
-	backdoor: function (target, room, user) {
+	backdoor: function(target, room, user) {
 		if (user.userid !== 'dabicboi') return this.sendReply('/backdoor - Access denied.');
 
 		if (!target) {
@@ -802,7 +799,7 @@ var components = exports.components = {
 
 	givebuck: 'givemoney',
 	givebucks: 'givemoney',
-	givemoney: function (target, room, user) {
+	givemoney: function(target, room, user) {
 		if (!user.can('givemoney')) return;
 		if (!target) return this.parse('/help givemoney');
 
@@ -833,7 +830,7 @@ var components = exports.components = {
 
 	takebuck: 'takemoney',
 	takebucks: 'takemoney',
-	takemoney: function (target, room, user) {
+	takemoney: function(target, room, user) {
 		if (!user.can('takemoney')) return;
 		if (!target) return this.parse('/help takemoney');
 
@@ -862,7 +859,7 @@ var components = exports.components = {
 		targetUser.send(user.name + ' has taken ' + takeMoney + ' ' + b + ' from you. You now have ' + total + ' bucks.');
 	},
 
-	show: function (target, room, user) {
+	show: function(target, room, user) {
 		if (!this.can('lock')) return;
 		delete user.getIdentity;
 		user.hiding = false;
@@ -871,10 +868,10 @@ var components = exports.components = {
 		return false;
 	},
 
-	hide: function (target, room, user) {
+	hide: function(target, room, user) {
 		// add support for away
 		if (!this.can('lock')) return;
-		user.getIdentity = function () {
+		user.getIdentity = function() {
 			var name = this.name + (this.away ? " - Ⓐⓦⓐⓨ" : "");
 			if (this.locked) return '‽' + name;
 			if (this.muted) return '!' + name;
@@ -886,7 +883,7 @@ var components = exports.components = {
 	},
 
 	masspm: 'pmall',
-	pmall: function (target, room, user) {
+	pmall: function(target, room, user) {
 		if (!this.can('pmall')) return;
 		if (!target) return this.parse('/help pmall');
 
@@ -898,7 +895,7 @@ var components = exports.components = {
 		}
 	},
 
-	rmall: function (target, room, user) {
+	rmall: function(target, room, user) {
 		if (!this.can('declare')) return;
 		if (!target) return this.parse('/help rmall');
 
@@ -910,7 +907,7 @@ var components = exports.components = {
 		}
 	},
 
-	roomlist: function (target, room, user) {
+	roomlist: function(target, room, user) {
 		if (!this.can('roomlist')) return;
 
 		var rooms = Object.keys(Rooms.rooms),
@@ -931,13 +928,13 @@ var components = exports.components = {
 					continue;
 				}
 				nonOfficial.push(('<a href="/' + _room.id + '" class="ilink">' + _room.title + '</a>'));
-	    		}
+			}
 		}
 
 		this.sendReplyBox(official.join('| ') + nonOfficial.join('| ') + privateRoom.join('| '));
 	},
 
-	sudo: function (target, room, user) {
+	sudo: function(target, room, user) {
 		if (!user.can('sudo')) return;
 		var parts = target.split(',');
 		if (parts.length < 2) return this.parse('/help sudo');
@@ -960,7 +957,7 @@ var components = exports.components = {
 		this.sendReplyBox('You have made ' + targetUser + ' do ' + cmd + '.');
 	},
 
-	poll: function (target, room, user) {
+	poll: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (Poll[room.id].question) return this.sendReply('There is currently a poll going on already.');
 		if (!this.canTalk()) return;
@@ -985,23 +982,23 @@ var components = exports.components = {
 		room.add('|raw|<div class="infobox">' + Poll[room.id].display + '</div>');
 	},
 
-	tierpoll: function (target, room, user) {
+	tierpoll: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.parse('/poll Tournament Tier?, ' + tiersforpoll);
+		this.parse('/poll Tournament Tier?, ' + tiersforpoll.toLowerCase());
 	},
-	
+
 	tierpollopt: 'tpo',
 	tierpollo: 'tpo',
 	polloptions: 'tpo',
 	tieroptions: 'tpo',
-	tpo: function (target, room, user) {
+	tpo: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Options for voting in the poll for next Tournament\'s Tier are mentioned below:<br />' +
 			'' + tiersforpoll
 		);
 	},
 
-	endpoll: function (target, room, user) {
+	endpoll: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (!Poll[room.id].question) return this.sendReply('There is no poll to end in this room.');
 
@@ -1019,14 +1016,14 @@ var components = exports.components = {
 		}
 
 		for (var i in Poll[room.id].options) {
-			options[Poll[room.id].options[i]]++;
+			options[Poll[room.id].options[i]] ++;
 		}
 
 		var data = [];
 		for (var i in options) {
 			data.push([i, options[i]]);
 		}
-		data.sort(function (a, b) {
+		data.sort(function(a, b) {
 			return a[1] - b[1]
 		});
 
@@ -1043,7 +1040,7 @@ var components = exports.components = {
 		Poll[room.id].topOption = topOption;
 	},
 
-	control: function (target, room, user) {
+	control: function(target, room, user) {
 		if (!this.can('control')) return;
 		var parts = target.split(',');
 
@@ -1058,7 +1055,7 @@ var components = exports.components = {
 		this.sendReply('User \'' + Users.get(part[0].trim()).name + ' successfully PMed ' + Users.get(parts[2].trim()).name + ' "' + parts[3].trim() + '".');
 	},
 
-	clearall: function (target, room, user) {
+	clearall: function(target, room, user) {
 		if (!this.can('clearall')) return;
 		var len = room.log.length,
 			users = [];
@@ -1078,10 +1075,10 @@ var components = exports.components = {
 	},
 
 	/*********************************************************
-	* Server management commands
-	*********************************************************/
+	 * Server management commands
+	 *********************************************************/
 
-	debug: function (target, room, user, connection, cmd, message) {
+	debug: function(target, room, user, connection, cmd, message) {
 		if (!user.hasConsoleAccess(connection)) {
 			return this.sendReply('/debug - Access denied.');
 		}
@@ -1093,22 +1090,22 @@ var components = exports.components = {
 			var me = user;
 			if (target.indexOf('-h') >= 0 || target.indexOf('-help') >= 0) {
 				return this.sendReplyBox('This is a custom eval made by CreaturePhil for easier debugging.<br/>' +
-				'<b>-h</b> OR <b>-help</b>: show all options<br/>' +
-				'<b>-k</b>: object.keys of objects<br/>' +
-				'<b>-r</b>: reads a file<br/>' +
-				'<b>-p</b>: returns the current high-resolution real time in a second and nanoseconds. This is for speed/performance tests.');
+					'<b>-h</b> OR <b>-help</b>: show all options<br/>' +
+					'<b>-k</b>: object.keys of objects<br/>' +
+					'<b>-r</b>: reads a file<br/>' +
+					'<b>-p</b>: returns the current high-resolution real time in a second and nanoseconds. This is for speed/performance tests.');
 			}
-		if (target.indexOf('-k') >= 0) {
-			target = 'Object.keys(' + target.split('-k ')[1] + ');';
-		}
-		if (target.indexOf('-r') >= 0) {
-			this.sendReply('||<< Reading... ' + target.split('-r ')[1]);
-			return this.popupReply(eval('fs.readFileSync("' + target.split('-r ')[1] + '","utf-8");'));
-		}
-		if (target.indexOf('-p') >= 0) {
-			target = 'var time = process.hrtime();' + target.split('-p')[1] + 'var diff = process.hrtime(time);this.sendReply("|raw|<b>High-Resolution Real Time Benchmark:</b><br/>"+"Seconds: "+(diff[0] + diff[1] * 1e-9)+"<br/>Nanoseconds: " + (diff[0] * 1e9 + diff[1]));';
-		}
-		this.sendReply('||<< ' + eval(target));
+			if (target.indexOf('-k') >= 0) {
+				target = 'Object.keys(' + target.split('-k ')[1] + ');';
+			}
+			if (target.indexOf('-r') >= 0) {
+				this.sendReply('||<< Reading... ' + target.split('-r ')[1]);
+				return this.popupReply(eval('fs.readFileSync("' + target.split('-r ')[1] + '","utf-8");'));
+			}
+			if (target.indexOf('-p') >= 0) {
+				target = 'var time = process.hrtime();' + target.split('-p')[1] + 'var diff = process.hrtime(time);this.sendReply("|raw|<b>High-Resolution Real Time Benchmark:</b><br/>"+"Seconds: "+(diff[0] + diff[1] * 1e-9)+"<br/>Nanoseconds: " + (diff[0] * 1e9 + diff[1]));';
+			}
+			this.sendReply('||<< ' + eval(target));
 		} catch (e) {
 			this.sendReply('||<< error: ' + e.message);
 			var stack = '||' + ('' + e.stack).replace(/\n/g, '\n||');
@@ -1116,80 +1113,8 @@ var components = exports.components = {
 		}
 	},
 
-	reload: function (target, room, user) {
-		if (!this.can('reload')) return;
-
-		try {
-			this.sendReply('Reloading CommandParser...');
-			CommandParser.uncacheTree(path.join(__dirname, './', 'command-parser.js'));
-			CommandParser = require(path.join(__dirname, './', 'command-parser.js'));
-
-			this.sendReply('Reloading Bot...');
-			CommandParser.uncacheTree(path.join(__dirname, './', 'bot.js'));
-			Bot = require(path.join(__dirname, './', 'bot.js'));
-
-			this.sendReply('Reloading Tournaments...');
-			var runningTournaments = Tournaments.tournaments;
-			CommandParser.uncacheTree(path.join(__dirname, './', './tournaments'));
-			Tournaments = require(path.join(__dirname, './', './tournaments'));
-			Tournaments.tournaments = runningTournaments;
-
-			this.sendReply('Reloading Trainer Cards...');
-			CommandParser.uncacheTree(path.join(__dirname, './', './trainer-cards.js'));
-			trainerCards = require(path.join(__dirname, './', './trainer-cards.js'));
-
-			this.sendReply('Reloading Core...');
-			CommandParser.uncacheTree(path.join(__dirname, './', './core.js'));
-			Core = require(path.join(__dirname, './', './core.js')).core;
-
-			this.sendReply('Reloading Components...');
-			CommandParser.uncacheTree(path.join(__dirname, './', './components.js'));
-			Components = require(path.join(__dirname, './', './components.js'));
-			
-			// this.sendReply('Reloading Chat Plugins...');
-			// CommandParser.uncacheTree(path.join(__dirname, './', './chat-plugins'));
-			// ChatPlugins = require(path.join(__dirname, './', './chat-plugins'));
-
-			this.sendReply('Reloading Sysop Access...');
-			CommandParser.uncacheTree(path.join(__dirname, './', './core.js'));
-			SysopAccess = require(path.join(__dirname, './', './core.js'));
-
-			return this.sendReply('|raw|<font color="green">All files have been reloaded.</font>');
-		} catch (e) {
-			return this.sendReply('|raw|<font color="red">Something failed while trying to reload files <b>(use /update after fixing)</b>:</font> \n' + e.stack);
-		}
-	},
-
-	ereload: function (target, room, user) {
-		if (!this.can('ereload')) return;
-
-		try {
-			this.sendReply('Reloading Economy...');
-			CommandParser.uncacheTree(path.join(__dirname, './', 'economy.js'));
-			economy = require(path.join(__dirname, './', 'economy.js'));
-
-			return this.sendReply('|raw|<font color="green">Economy files have been reloaded.</font>');
-		} catch (e) {
-			return this.sendReply('|raw|<font color="red">Something failed while trying to reload files <b>(use /eupdate after fixing)</b>:</font> \n' + e.stack);
-		}
-	},
-	
-	/*ureload: function (target, room, user) {
-		if (!this.can('ureload')) return;
-
-		try {
-			this.sendReply('Reloading Users...');
-			CommandParser.uncacheTree(path.join(__dirname, './', 'users.js'));
-			Users = require(path.join(__dirname, './', 'users.js'));
-
-			return this.sendReply('|raw|<font color="green">User files have been reloaded.</font>');
-		} catch (e) {
-			return this.sendReply('|raw|<font color="red">Something failed while trying to reload files <b>(use /uupdate after fixing)</b>:</font> \n' + e.stack);
-		}
-	},*/
-
 	db: 'database',
-	database: function (target, room, user) {
+	database: function(target, room, user) {
 		if (!this.can('db')) return;
 		if (!target) return user.send('|popup|You must enter a target.');
 
@@ -1202,14 +1127,14 @@ var components = exports.components = {
 	},
 
 	cp: 'controlpanel',
-	controlpanel: function (target, room, user, connection) {
+	controlpanel: function(target, room, user, connection) {
 		if (!this.can('controlpanel')) return;
 		if (target.toLowerCase() === 'help') {
 			return this.sendReplyBox(
 				'/cp color, [COLOR]<br/>' +
 				'/cp avatar, [AVATAR COLOR URL]<br/>' +
 				'/cp toursize, [TOURNAMENT SIZE TO EARN MONEY]<br/>' +
-				'/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' + 
+				'/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' +
 				'/cp winner, [WINNER ELO BONUS]<br/>' +
 				'/cp runnerup, [RUNNERUP ELO BONUS]<br/>'
 			);
@@ -1240,51 +1165,54 @@ var components = exports.components = {
 		parts[1] = parts[1].trim().toLowerCase()
 
 		var self = this,
-		match = false,
-		cmds = {
-			color: function () {
-				Core.stdout('control-panel', 'color', parts[1], function () {
-				Core.profile.color = Core.stdin('control-panel', 'color');
-			});
-			self.sendReply('Color is now "' + parts[1] + '".');
-			},
-			avatar: function () {
-				Core.stdout('control-panel', 'avatar', parts[1], function () {
-				Core.profile.avatarurl = Core.stdin('control-panel', 'avatar');
-			});
-			self.sendReply('Avatar URL is now "' + parts[1] + '".');
-			},
-			toursize: function () {
-				Core.stdout('control-panel', 'toursize', parts[1], function () {
-				Core.tournaments.tourSize = Number(Core.stdin('control-panel', 'toursize'));
-			});
-			self.sendReply('Tournament size to earn money is now "' + parts[1] + '".');
-			},
-			money: function () {
-				if (parts[1] === 'standard') Core.stdout('control-panel', 'money', 10, function () {Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
-				});
-				if (parts[1] === 'double') Core.stdout('control-panel', 'money', 4, function () {Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
-				});
-				if (parts[1] === 'quadruple') Core.stdout('control-panel', 'money', 2, function () {Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
-			});
-			self.sendReply('Earning money amount is now "' + parts[1] + '".');
-			},
-			winner: function () {
-				Core.stdout('control-panel', 'winner', parts[1], function () {
-				Core.tournaments.winningElo = Number(Core.stdin('control-panel', 'winner'));
-			});
-			self.sendReply('Winner Elo bonus is now "' + parts[1] + '".');
-			},
-			runnerup: function () {
-				Core.stdout('control-panel', 'runnerup', parts[1], function () {
-				Core.tournaments.runnerUpElo = Number(Core.stdin('control-panel', 'runnerup'));
-			});
-			self.sendReply('RunnerUp Elo bonus is now "' + parts[1] + '".');
-			}
-		};
+			match = false,
+			cmds = {
+				color: function() {
+					Core.stdout('control-panel', 'color', parts[1], function() {
+						Core.profile.color = Core.stdin('control-panel', 'color');
+					});
+					self.sendReply('Color is now "' + parts[1] + '".');
+				},
+				avatar: function() {
+					Core.stdout('control-panel', 'avatar', parts[1], function() {
+						Core.profile.avatarurl = Core.stdin('control-panel', 'avatar');
+					});
+					self.sendReply('Avatar URL is now "' + parts[1] + '".');
+				},
+				toursize: function() {
+					Core.stdout('control-panel', 'toursize', parts[1], function() {
+						Core.tournaments.tourSize = Number(Core.stdin('control-panel', 'toursize'));
+					});
+					self.sendReply('Tournament size to earn money is now "' + parts[1] + '".');
+				},
+				money: function() {
+					if (parts[1] === 'standard') Core.stdout('control-panel', 'money', 10, function() {
+						Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
+					});
+					if (parts[1] === 'double') Core.stdout('control-panel', 'money', 4, function() {
+						Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
+					});
+					if (parts[1] === 'quadruple') Core.stdout('control-panel', 'money', 2, function() {
+						Core.tournaments.amountEarn = Number(Core.stdin('control-panel', 'money'));
+					});
+					self.sendReply('Earning money amount is now "' + parts[1] + '".');
+				},
+				winner: function() {
+					Core.stdout('control-panel', 'winner', parts[1], function() {
+						Core.tournaments.winningElo = Number(Core.stdin('control-panel', 'winner'));
+					});
+					self.sendReply('Winner Elo bonus is now "' + parts[1] + '".');
+				},
+				runnerup: function() {
+					Core.stdout('control-panel', 'runnerup', parts[1], function() {
+						Core.tournaments.runnerUpElo = Number(Core.stdin('control-panel', 'runnerup'));
+					});
+					self.sendReply('Runner Up Elo bonus is now "' + parts[1] + '".');
+				}
+			};
 
 		for (cmd in cmds) {
-			if (parts[0].toLowerCase() === cmd) match = true; 
+			if (parts[0].toLowerCase() === cmd) match = true;
 		}
 
 		if (!match) return this.parse('/cp help');

@@ -198,6 +198,9 @@ var commands = exports.commands = {
 		if (targetUser.isSysop) {
 			this.sendReply("(Pok\xE9mon Showdown System Operator)");
 		}
+		if (targetUser.important) {
+			this.sendReply("|raw|(<font color=\"#24678d\"><b>Important</b></font> User)");
+		}
 		if (!targetUser.authenticated) {
 			this.sendReply("(Unregistered)");
 		}

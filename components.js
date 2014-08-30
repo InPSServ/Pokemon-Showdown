@@ -859,27 +859,32 @@ var components = exports.components = {
 		targetUser.send(user.name + ' has taken ' + takeMoney + ' ' + b + ' from you. You now have ' + total + ' bucks.');
 	},
 
-	show: function(target, room, user) {
-		if (!this.can('lock')) return;
-		delete user.getIdentity;
-		user.hiding = false;
+	hide: 'hideauth',
+	hideauth: function (target, room, user) {
+		if (!this.can('hideauth')) return false;
+		target = target || Config.groups.default.global;
+		if (!Config.groups.global[target]) {
+			target = Config.groups.default.global;
+			this.sendReply("You have picked an invalid group, defaulting to '" + target + "'.");
+		} else if (Config.groups.bySymbol[target].globalRank >= Config.groups.bySymbol[user.group].globalRank)
+			return this.sendReply("The group you have chosen is either your current group OR one of higher rank. You cannot hide like that.");
+
+		user.getIdentity = function (roomid) {
+			var identity = Object.getPrototypeOf(this).getIdentity.call(this, roomid);
+			if (identity[0] === this.group)
+				return target + identity.slice(1);
+			return identity;
+		};
 		user.updateIdentity();
-		this.sendReply('You have revealed your staff symbol.');
-		return false;
+		return this.sendReply("You are now hiding your auth as '" + target + "'.");
 	},
 
-	hide: function(target, room, user) {
-		// add support for away
-		if (!this.can('lock')) return;
-		user.getIdentity = function() {
-			var name = this.name + (this.away ? " - Ⓐⓦⓐⓨ" : "");
-			if (this.locked) return '‽' + name;
-			if (this.muted) return '!' + name;
-			return ' ' + name;
-		};
-		user.hiding = true;
+	show: 'showauth',
+	showauth: function (target, room, user) {
+		if (!this.can('hideauth')) return false;
+		delete user.getIdentity;
 		user.updateIdentity();
-		this.sendReply('You have hidden your staff symbol.');
+		return this.sendReply("You are now showing your authority!");
 	},
 
 	masspm: 'pmall',

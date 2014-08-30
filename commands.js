@@ -373,7 +373,7 @@ var commands = exports.commands = {
 		Object.keys(rankLists).sort(function (a, b) {
 			return Config.groups.bySymbol[b].rank - Config.groups.bySymbol[a].rank;
 		}).forEach(function (r) {
-			buffer.push(Config.groups.bySymbol[r].name + "s (" + r + "):\n" + rankLists[r].sort().join(", "));
+			buffer.push('**' + Config.groups.bySymbol[r].name + "s (" + r + "):**" + rankLists[r].sort().join(", "));
 		});
 
 		if (!buffer.length) {

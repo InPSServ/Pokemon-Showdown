@@ -1481,86 +1481,39 @@ var commands = exports.commands = {
 		};
 	})(),
 
-	gym: 'gymleaders',
-	gymleaders: (function () {
-		const gyms = [
-			{
-				name: "Psychic",
-				leader: "Mike2936",
-				rules: ["OU BATTLE", "6v6 BATTLE", "No Destiny Bond Wobbuffet"]
-			},{
-				name: "Water",
-				leader: "Bowenn",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "Dark",
-				leader: "DoctorJoey",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "Flying",
-				leader: "ProfessorPsy",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "Dragon",
-				leader: "Matias",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "Ice",
-				leader: "XavierFlynt",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "Fire",
-				leader: "Olearne",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			},{
-				name: "NeedWeed",
-				leader: "Ground",
-				rules: ["OU BATTLE", "6v6 BATTLE"]
-			}
-		];
+	spam: 'spamroom',
+	spamroom: function (target, room, user) {
+		if (!target) return this.sendReply("Please specify a user.");
+		this.splitTarget(target);
 
-		return function (target) {
-			if (!this.canBroadcast()) return;
+		if (!this.targetUser) {
+			return this.sendReply("The user '" + this.targetUsername + "' does not exist.");
+		}
+		if (!this.can('mute', this.targetUser)) {
+			return false;
+		}
 
-			var parts = target.split(',').map(function (p) { return p.trim(); });
-			if (!parts[0]) parts = Object.keys(gyms).map(function (p) { return parseInt(p, 10) + 1; });
+		var targets = Spamroom.addUser(this.targetUser);
+		if (targets.length === 0) {
+			return this.sendReply("That user's messages are already being redirected to the spamroom.");
+		}
+		this.privateModCommand("(" + user.name + " has added to the spamroom user list: " + targets.join(", ") + ")");
+	},
 
-			var buffer = [];
-			parts.forEach(function (part) {
-				var gym = gyms[part - 1];
-				if (!gym) {
-					buffer.push("<center><strong>" + Tools.escapeHTML(part) + " is not a valid gym number</strong></center>");
-					return;
-				}
+	unspam: 'unspamroom',
+	unspamroom: function (target, room, user) {
+		if (!target) return this.sendReply("Please specify a user.");
+		this.splitTarget(target);
 
+		if (!this.can('mute')) {
+			return false;
+		}
 
-				buffer.push(
-					"<center><strong>~Gym " + part + " - " + Tools.escapeHTML(gym.name) + " Gym~</strong></center>" +
-					"<strong>~~Leader: " + Tools.escapeHTML(gym.leader) + "~~</strong><br />" +
-					"<strong>~Gym Rules~</strong><br />"+
-					"<ul>" +
-						gym.rules.map(function (rule) { return '<li>' + Tools.escapeHTML(rule) + '</li>'; }).join('') +
-					"</ul>"
-				);
-			});
-			this.sendReplyBox(buffer.join('<br />'));
-		};
-	})(),
-
-	donate: function () {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox(
-			"<center><strong>~Donator Shop~</strong></center>" +
-			"Donator rank = $3" +
-			"<ul>" +
-			"<li>Access to !cc</li>" +
-			"<li>Donator rank symbol</li>" +
-			"<li>Custom Avatar</li>" +
-			"<li>Access to Donator Lounge</li>" +
-			"<li>Access to new vip features</li>" +
-			"</ul>" +
-			"CONTACT (Krister or MarcusPareli) TO DONATE"
-		);
+		var targets = Spamroom.removeUser(this.targetUser || this.targetUsername);
+		if (targets.length === 0) {
+			return this.sendReply("That user is not in the spamroom list.");
+		}
+		this.privateModCommand("(" + user.name + " has removed from the spamroom user list: " + targets.join(", ") + ")");
 	},
 
 	/*********************************************************

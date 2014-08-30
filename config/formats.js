@@ -356,7 +356,6 @@ exports.Formats = [
 		name: "DDT",
 		section: "Dun Deal",
 
-		mod: 'ddt',
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Mega Clause', 'Moody Clause', 'Evasion Moves Clause', 'Accuracy Moves Clause', 'Endless Battle Clause', 'Weather Clause', 'HP Percentage Mod', 'Team Preview'],
 		banlist: ['Uber', 'Prankster + Assist', 'Belly Drum + ExtremeSpeed', 'Confuse Ray', 'Flatter', 'Sticky Web', 'Supersonic', 'Swagger', 'Sweet Kiss', 'Teeter Dance', 'Chansey', 'Doublade', 'Dusclops', 'Gligar', 'Jynx', 'Musharna', 'Porygon2', 'Sawk', 'Scyther', 'BrightPowder', 'Focus Band', 'Focus Sash', 'Lax Incense', 'Quick Claw', 'Razor Fang']
 	},

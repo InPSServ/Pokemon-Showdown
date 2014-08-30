@@ -8,6 +8,8 @@ miscommands.js
 /logs/complain.txt
 /config/config.js
 /config/custom.css
+spamroom.js
+bot.js
 
 # boilerplate #
 ###############

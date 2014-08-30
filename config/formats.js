@@ -346,30 +346,28 @@ exports.Formats = [
 		section: "Dun Deal",
 		forcedLevel: 100,
 
-		ruleset: ['Pokemon', 'Standard', 'Weather Clause', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard', 'Accuracy Moves Clause', 'Weather Clause', 'Team Preview'],
 		banlist: ['BrightPowder', 'Focus Band', 'King\'s Rock', 'Lax Incense', 'Quick Claw', 'Quick Powder', 'Razor Fang', 'Attract', 'Confuse Ray', 'Flatter', 
-			'Supersonic', 'Swagger', 'Sweet Kiss', 'Teeter Dance', 'Shell Smash + Baton Pass', 'Speed Boost + Baton Pass', 'Genesect-Burn', 'Genesect-Chill', 'Genesect-Douse', 'Genesect-Shock', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fairy', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost',
-			'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'arceus-rock', 'arceus-steel', 'arceus-water', 'blaziken', 'darkrai', 'deoxys', 'deoxys-attack', 'dialga', 'genesect', 'giratina', 'giratina-origin', 'groudon', 'ho-oh', 'kyogre', 'kyurem-white', 'lugia', 'mewtwo', 'palkia', 'rayquaza', 'reshiram', 'shaymin-sky', 'xerneas', 'yveltal', 'zekrom', 'aegislash', 'alakazam', 'azumarill', 'bisharp', 'blissey', 'breloom', 'chansey', 'charizard', 'clefable', 'conkeldurr', 'deoxys-defense', 'deoxys-speed', 'dragonite', 'espeon', 'excadrill', 'ferrothorn', 'garchomp', 'gengar', 'gliscor', 'goodra', 'greninja', 'gyarados', 'heatran', 'infernape', 'keldeo', 'kyurem-black', 'landorus', 'landorus-therian', 'latias', 'latios', 'lucario', 'mamoswine', 'manaphy', 'mandibuzz', 'mawile', 'pinsir', 'rotom-wash', 'scizor', 'skarmory', 'sylveon', 'talonflame', 'terrakion', 'thundurus', 'togekiss', 'tyranitar', 'venusaur', 'volcarona', 'zapdos', 'diggersby', 'gothitelle', 'hawlucha', 'haxorus', 'hydreigon', 'magnezone', 'salamence', 'scolipede', 'staraptor', 'thundurus-therian', 'tornadus-therian', 'weavile', 'wobbuffet', 'zygarde', 'absol', 'aerodactyl', 'aggron', 'ampharos', 'arcanine', 'blastoise', 'celebi', 'chandelure', 'cloyster', 'crobat', 'darmanitan', 'donphan', 'empoleon', 'entei', 'florges', 'flygon', 'forretress', 'galvantula', 'gardevoir', 'heracross', 'hippowdon', 'honchcrow', 'houndoom', 'jirachi', 'jolteon', 'kingdra', 'klefki ', 'krookodile', 'machamp', 'manectric', 'metagross', 'mew', 'mienshao', 'nidoking', 'nidoqueen', 'noivern', 'porygon-z', 'porygon-2', 'quagsire', 'roserade', 'rotom-heat', 'scrafty', 'slowbro', 'snorlax', 'starmie', 'suicune', 'swampert', 'tentacruel', 'trevenant', 'umbreon', 'vaporeon', 'victini', 'banette', 'cofagrigus', 'ditto', 'electivire', 'gastrodon', 'gourgeist-super', 'heliolisk', 'jellicent', 'malamar', 'medicham', 'milotic', 'ninetales', 'ninjask', 'reuniclus', 'sableye', 'smeargle', 'toxicroak', 'whimsicott', 'abomasnow', 'ambipom', 'avalugg', 'azelf', 'barbaracle', 'carbink', 'cinccino', 'clawitzer', 'cresselia', 'delphox', 'dragalge', 'drapion', 'dugtrio', 'dusclops', 'eelektross', 'exploud', 'froslass', 'gallade', 'hitmontop', 'liepard', 'rhyperior', 'sceptile', 'shuckle', 'sigilyph', 'slurpuff', 'tangrowth', 'tyrantrum', 'xatu', 'accelgor', 'alomomola', 'altaria', 'amoonguss', 'archeops', 'armaldo', 'aromatisse', 'basculin', 'basculin-blue-striped', 'bastiodon', 'bouffalant', 'braviary', 'bronzong', 'cacturne', 'camerupt', 'carracosta', 'chatot', 'claydol', 'cobalion', 'cradily', 'crustle', 'cryogonal', 'drifblim', 'druddigon', 'dusknoir', 'electabuzz', 'electrode', 'emboar', 'escavalier', 'exeggutor', 'feraligatr', 'ferroseed', 'flareon', 'floatzel', 'furfrou', 'garbodor', 'gigalith', 'gligar', 'gogoat', 'golbat', 'golem', 'golurk', 'gorebyss', 'gourgeist', 'gourgeist-large', 'gourgeist-small', 'gurdurr', 'hariyama', 'haunter', 'hitmonchan', 'hitmonlee', 'jynx', 'kabutops', 'kadabra', 'kecleon', 'klinklang', 'kyurem', 'lanturn', 'lapras', 'leavanny', 'lickilicky', 'lilligant', 'linoone', 'ludicolo', 'machoke', 'magmortar', 'magneton', 'masquerain', 'meloetta', 'meowstic', 'mesprit', 'metang', 'miltank', 'misdreavus', 'mismagius', 'moltres', 'musharna', 'omastar', 'piloswine', 'politoed', 'poliwrath', 'primeape', 'probopass', 'pyroar', 'qwilfish', 'raikou', 'rampardos', 'regice', 'regirock', 'registeel', 'rhydon', 'roselia', 'rotom', 'rotom-fan', 'rotom-mow', 'samurott', 'sandslash', 'sawk', 'sawsbuck', 'scyther', 'seismitoad', 'serperior', 'sharpedo', 'shaymin', 'slaking', 'slowking', 'spiritomb', 'steelix', 'stoutland', 'swellow', 'tangela', 'tauros', 'torkoal', 'tornadus', 'typhlosion', 'uxie', 'venomoth', 'virizion', 'vivillon', 'wartortle', 'weezing', 'yanmega', 'zangoose', 'zoroark', 'doublade', 'sliggoo', 'slaking'
+			'Supersonic', 'Swagger', 'Sweet Kiss', 'Teeter Dance', 'Shell Smash + Baton Pass', 'Speed Boost + Baton Pass',
+			'Uber', 'OU', 'BL', 'UU', 'BL2', 'RU', 'BL3', 'NU', 'Ferroseed', 'Haunter', 'Kadabra', 'Machoke', 'Metang', 'Misdreavus', 'Rhydon', 'Roselia', 'Scyther', 'Tangela', 'Wartortle'
 		]
-		/*banlist: ['Uber', 'OU', 'UU', 'RU', 'BrightPowder', 'Focus Band', 'King\'s Rock', 'Lax Incense', 'Quick Claw', 'Quick Powder', 'Razor Fang', 'Attract', 'Confuse Ray', 'Flatter', 
-			'Supersonic', 'Swagger', 'Sweet Kiss', 'Teeter Dance', 'Shell Smash + Baton Pass', 'Speed Boost + Baton Pass'
-		]*/
 	},
 	{
 		name: "DDT",
 		section: "Dun Deal",
 
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Team Preview'],
+		mod: 'ddt',
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Mega Clause', 'Moody Clause', 'Evasion Moves Clause', 'Accuracy Moves Clause', 'Endless Battle Clause', 'Weather Clause', 'HP Percentage Mod', 'Team Preview'],
 		banlist: ['Uber', 'Prankster + Assist', 'Belly Drum + ExtremeSpeed', 'Confuse Ray', 'Flatter', 'Sticky Web', 'Supersonic', 'Swagger', 'Sweet Kiss', 'Teeter Dance', 'Chansey', 'Doublade', 'Dusclops', 'Gligar', 'Jynx', 'Musharna', 'Porygon2', 'Sawk', 'Scyther', 'BrightPowder', 'Focus Band', 'Focus Sash', 'Lax Incense', 'Quick Claw', 'Razor Fang']
 	},
 	{
-		name: "ABC Abilities (Beta)",
+		name: "ABC Abilities (beta)",
 		section: "Dun Deal",
 
 		canUseRandomTeam: true,
 		maxLevel: 100,
-		ruleset: ['Team Preview', 'Pokemon', 'HP Percentage Mod', 'Sleep Clause'],
-		banlist: ['Uber', 'Regigigas', 'Slaking', 'Simple + Geomancy', 'Simple + Shell Smash', 'Simple + Shift Gear', 'Parental Bond + Super Fang', 'Moody', 'Mountaineer', 'Persistent', 'Rebound', 'Wonder Guard', 'Pure Power + Light Ball', 'Parental Bond + Light Ball'],
+		ruleset: ['Team Preview', 'Pokemon', 'HP Percentage Mod', 'Sleep Clause', 'Accuracy Moves Clause', 'Evasion Moves Clause'],
+		banlist: ['Uber', 'Regigigas', 'Slaking', 'Simple + Geomancy', 'Simple + Shell Smash', 'Simple + Shift Gear', 'Parental Bond + Super Fang', 'Moody', 'Mountaineer', 'Persistent', 'Rebound', 'Wonder Guard', 'Huge Power + Light Ball', 'Pure Power + Light Ball', 'Parental Bond + Light Ball', 'Huge Power', 'Pure Power', 'Sketch'],
 		validateTeam: function (team, format) {
 			var letters = {};
 			var letter = '';
@@ -381,13 +379,13 @@ exports.Formats = [
 		}
 	},
 	{
-		name: "ABC Ubers (Beta)",
+		name: "ABC Ubers (beta)",
 		section: "Dun Deal",
 
 		canUseRandomTeam: false,
 		maxLevel: 100,
 		ruleset: ['Team Preview', 'Pokemon', 'HP Percentage Mod', 'OHKO Clause', 'Sleep Clause'],
-		banlist: ['Moody', 'Mountaineer', 'Persistent', 'Rebound'],
+		banlist: ['Moody', 'Mountaineer', 'Persistent', 'Rebound', 'Sketch'],
 		validateTeam: function (team, format) {
 			var letters = {};
 			var letter = '';

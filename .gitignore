@@ -2,6 +2,7 @@
 /logs/*
 /node_modules
 npm-debug.log
+/chat-plugins/authlist.js
 components.js
 core.js
 miscommands.js

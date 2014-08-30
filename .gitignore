@@ -9,6 +9,7 @@ miscommands.js
 /config/config.js
 /config/custom.css
 spamroom.js
+/chat-plugins/poof.js
 bot.js
 
 # boilerplate #

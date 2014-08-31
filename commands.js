@@ -1098,6 +1098,12 @@ var commands = exports.commands = {
 				global.Tournaments = require('./tournaments');
 				Tournaments.tournaments = runningTournaments;
 
+				CommandParser.uncacheTree(path.join(__dirname, './', './components.js'));
+				Components = require(path.join(__dirname, './', './components.js'));
+
+				CommandParser.uncacheTree(path.join(__dirname, './', './miscommands.js'));
+				Miscommands = require(path.join(__dirname, './', './miscommands.js'));
+
 				return this.sendReply("Chat commands have been hot-patched.");
 			} catch (e) {
 				return this.sendReply("Something failed while trying to hotpatch chat: \n" + e.stack);
@@ -1110,6 +1116,7 @@ var commands = exports.commands = {
 				CommandParser.uncacheTree('./tournaments');
 				global.Tournaments = require('./tournaments');
 				Tournaments.tournaments = runningTournaments;
+
 				return this.sendReply("Tournaments have been hot-patched.");
 			} catch (e) {
 				return this.sendReply("Something failed while trying to hotpatch tournaments: \n" + e.stack);
